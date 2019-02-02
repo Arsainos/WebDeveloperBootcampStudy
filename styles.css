@@ -1,0 +1,28 @@
+body{
+	background-color: rgba(10,200,3,0.2);
+	background-size: cover;
+	background-position: center;
+	height: 100vh;
+	width: 100%;
+}
+
+#InnerContent {
+	text-align: center;
+ }
+
+ .jumbotron {
+ 	background-color: rgba(100,50,20,0.5);
+ }
+
+.embed-responsive{
+	margin-top: 5%;
+	margin-bottom: 5%;
+}
+
+#TicketsContent {
+	margin-top:5%;
+}
+
+.ColTicket{
+	height: 50px;
+}
