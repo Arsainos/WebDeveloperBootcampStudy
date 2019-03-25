@@ -8,18 +8,29 @@
     <link rel="stylesheet" type="text/css" media="screen" href="colorGame.css">    
 </head>
 <body>
-<h1>The great <span id="colorDisplay">RGB</span> Color Game</h1>
+<h1>
+    The Great
+    <br>
+    <span id="colorDisplay">RGB</span>
+    <br>
+    Color Game
+</h1>
      
-<div><span id="message"></span></div>
+<div id="stripe">
+    <button id="reset">New color</button>
+    <span id="message"></span>
+    <button id="easyBtn">Easy</button>
+    <button id="hardBtn" class="selected">Hard</button>
+</div>
 
-    <div id="container">
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div>
-        <div class="square"></div> 
-        <div class="square"></div>
-    </div>
+<div id="container">
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div> 
+    <div class="square"></div>
+</div>
 
     <script src="colorGame.js" type="text/javascript"></script>
 </body>
