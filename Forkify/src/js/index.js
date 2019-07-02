@@ -1,5 +1,5 @@
-// Global app controller
-import x from './test';
-const y = 22;
-console.log(x);
-console.log(y);
+import Search from './modules/Search';
+
+const search = new Search('pizza');
+console.log(search);
+search.getResults();
