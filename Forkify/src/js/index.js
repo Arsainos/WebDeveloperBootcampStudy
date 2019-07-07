@@ -79,7 +79,7 @@ const controlRecipe = async () => {
         try {
             // get recipe data and parse ingredients
             await state.recipe.getRecipe();
-            console.log(state.recipe.ingredients);
+            //console.log(state.recipe.ingredients);
             state.recipe.parseIngredients();
             console.log(state.recipe.ingredients);
 
@@ -110,5 +110,5 @@ elements.recipe.addEventListener('click', e => {
         state.recipe.updateServings('inc');
         recipeView.updateServingsIngredients(state.recipe);
     }
-    console.log(state.recipe);
+    //console.log(state.recipe);
 });
