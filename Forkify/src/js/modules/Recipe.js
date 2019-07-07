@@ -27,12 +27,13 @@ export default class Recipe{
     }
 
     calcServings() {
-        this.calcServings = 4;
+        this.servings = 4;
     }
 
     parseIngredients() {
         const unitsLong = ['tablespoons','tablespoon','ounces','ounce','teaspoons','teaspoon','cups','pounds'];
         const unitShort = ['tbsp','tbsp','oz','oz','tsp','tsp','cup','pound'];
+        const units = [...unitShort, 'kg', 'g'];
 
         const newIngredients = this.ingredients.map(el => {
             // 1. Uniform units
@@ -84,8 +85,20 @@ export default class Recipe{
                 };
             }
 
-            return ingredient;
+            return objIng;
         });
         this.ingredients = newIngredients;
+    }
+
+    updateServings(type) {
+        // Servings
+        const newServings = type === 'dec' ? this.servings - 1 : this.servings + 1;
+        
+        // Ingredients
+        this.ingredients.forEach(ing => {
+            ing.count = ing.count * (newServings / this.servings);
+        });
+        
+        this.servings = newServings;
     }
 }

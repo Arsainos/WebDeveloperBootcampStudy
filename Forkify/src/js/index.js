@@ -1,6 +1,7 @@
 import Search from './modules/Search';
 import Recipe from './modules/Recipe';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import {elements, renderLoader, clearLoader} from './views/base';
 
 /** Global state of the app
@@ -30,12 +31,12 @@ const controlSearch = async () => {
         renderLoader(elements.searchRes);
 
         try {
-        // 4. Search for recipes
-        await state.search.getResults();
+            // 4. Search for recipes
+            await state.search.getResults();
 
-        // 5. render results on UI
-        clearLoader();
-        searchView.renderResults(state.search.result);
+            // 5. render results on UI
+            clearLoader();
+            searchView.renderResults(state.search.result);
         } catch (error) {
             alert('Error processing search!');
             clearLoader();
@@ -66,25 +67,48 @@ const controlRecipe = async () => {
 
     if(id) {
         //Prepare UI for changes
+        recipeView.clearRecipe();
+        renderLoader(elements.recipe);
+
+        // Highlight selected search item
+        if(state.search) searchView.highlightSelected(id);
 
         //Create new recipe object
         state.recipe = new Recipe(id);
 
         try {
-        // get recipe data and parse ingredients
-        await state.recipe.getRecipe();
-        state.recipe.parseIngredients();
+            // get recipe data and parse ingredients
+            await state.recipe.getRecipe();
+            console.log(state.recipe.ingredients);
+            state.recipe.parseIngredients();
+            console.log(state.recipe.ingredients);
 
-        // calcu;ate servings and time
-        state.recipe.calcTime();
-        state.recipe.calcServings();
-        
-        // Render recipe
-        console.log(state.recipe);
+            // calculate servings and time
+            state.recipe.calcTime();
+            state.recipe.calcServings();
+            
+            // Render recipe
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
         } catch (error) {
-            alert('Error processing recipe!');
+            console.log(error);
+            alert('Error processing the recipe!');
         }
     }
 };
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+// Handling recipe button click
+elements.recipe.addEventListener('click', e => {
+    if(e.target.matches('.btn-decrease, .btn-decrease *')) {
+        if(state.recipe.servings > 1){
+            state.recipe.updateServings('dec');
+            recipeView.updateServingsIngredients(state.recipe);
+        }
+    } else if (e.target.matches('.btn-increase, .btn-increase *')) { 
+        state.recipe.updateServings('inc');
+        recipeView.updateServingsIngredients(state.recipe);
+    }
+    console.log(state.recipe);
+});
